@@ -6,10 +6,15 @@
 
 package livmd.ui;
 
+import javax.swing.JPanel;
+import livmd.data.LivMdDataModel;
+
 /**
  *
  * @author Owner
  */
-public class LivMdPanel {
+public class LivMdPanel extends JPanel{
+    
+    private LivMdDataModel data;
     
 }

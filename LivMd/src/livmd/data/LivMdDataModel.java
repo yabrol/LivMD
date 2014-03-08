@@ -4,21 +4,12 @@
  * and open the template in the editor.
  */
 
-package livmd.ui;
-
-import java.util.TreeMap;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+package livmd.data;
 
 /**
  *
  * @author Owner
  */
-public class LivMdGUI {
-    
-    protected JFrame window;
-    protected JPanel canvas;
-    
-    
+public class LivMdDataModel {
     
 }
