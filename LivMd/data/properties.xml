@@ -1,24 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    The properties in this file are loaded when the zombie crush saga game application
-    first loads. It should specify all that's needed to know to run a flavor of the
-    game, like where to load the zombie flavored game.
+    The properties in this file are loaded when the LivMd game application
+    first loads.
 -->
 <properties>
     <property_list>    
-        <property name="GAME_FLAVOR_FILE_NAME"      value="./zomcrush/zomcrush_properties.xml"></property>
-        <property name="WINDOW_WIDTH"               value="1280"></property>
-        <property name="WINDOW_HEIGHT"              value="720"></property>
-        <property name="GAME_WIDTH"                 value="1280"></property>
-        <property name="GAME_HEIGHT"                value="700"></property>
-        <property name="GAME_LEFT_OFFSET"           value="20"></property>
-        <property name="GAME_TOP_OFFSET"            value="100"></property>
-        <property name="AUDIO_PATH"                 value="./audio/"></property>
+        <property name="WINDOW_ICON"                value="LivMdWindowIcon.png"></property>
+        <property name="SPLASH_SCREEN_TITLE_TEXT"   value="Select a Language"></property>
+        <property name="WINDOW_WIDTH"               value="800"></property>
+        <property name="WINDOW_HEIGHT"              value="620"></property>
+        <property name="SPLASH_SCREEN_IMAGE_NAME"   value="LivMdSplashScreen.png"></property>
+        <property name="DATA_PATH"                  value="./data/"></property>
         <property name="IMG_PATH"                   value="./img/"></property>
-        <property name="FPS"                        value="30"></property>
-        <property name="RECORD_FILE_NAME"           value="PlayerRecord.dat"></property>
+        <property name="LETTERS_FONT_FAMILY"        value="monospaced"></property>
+        <property name="LETTERS_FONT_SIZE"          value="24"></property>
+        <property name="GUESSES_FONT_FAMILY"        value="monospaced"></property>
+        <property name="GUESSES_FONT_SIZE"          value="22"></property>
+        <property name="GUESS_FONT_SIZE"            value="36"></property>
+        <property name="GUESS_FONT_FAMILY"          value="monospaced"></property>
+        <property name="DEFAULT_YES_TEXT"           value="Yes"></property>
+        <property name="DEFAULT_NO_TEXT"            value="No"></property>
+        <property name="DEFAULT_EXIT_TEXT"          value="Are you sure you wish to Quit?"></property>
     </property_list>
-
     <property_options_list>
+        <property_options name="LANGUAGE_OPTIONS">
+            <option>English</option>
+            <option>Esperanto</option>
+            <option>Deutsch</option>
+        </property_options>
+        <property_options name="LANGUAGE_DATA_FILE_NAMES">
+            <option>EN.xml</option>
+            <option>EO.xml</option>
+            <option>GM.xml</option>
+        </property_options>
+        <property_options name="LANGUAGE_IMAGE_NAMES">
+            <option>EN.png</option>
+            <option>EO.png</option>
+            <option>GM.png</option>
+        </property_options>
     </property_options_list>
 </properties>
