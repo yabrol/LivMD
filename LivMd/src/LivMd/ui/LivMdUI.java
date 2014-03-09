@@ -624,7 +624,7 @@ public class LivMdUI {
   // -setTooltip
   /**
    * This function loads an image for use. Note that it makes use of the
-   * LivMdFileLoader utility class to do so.
+ LivMdFileLoader utility class to do so.
    *
    * @param imageName The image to load.
    *
