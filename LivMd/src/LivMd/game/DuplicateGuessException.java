@@ -1,6 +1,6 @@
 package LivMd.game;
 
-import LivMd.LivMd.LivMdPropertyType;
+import LivMd.LivMd.JottoPropertyType;
 import properties_manager.PropertiesManager;
 
 /**
@@ -41,7 +41,7 @@ public class DuplicateGuessException extends Exception
     public String toString()
     {
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        String illegalWordFeedback = props.getProperty(LivMdPropertyType.DUPLICATE_WORD_ERROR_TEXT);
+        String illegalWordFeedback = props.getProperty(JottoPropertyType.DUPLICATE_WORD_ERROR_TEXT);
         return duplicateGuessWord + illegalWordFeedback;
     }
 }

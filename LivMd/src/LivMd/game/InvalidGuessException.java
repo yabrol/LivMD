@@ -1,6 +1,6 @@
 package LivMd.game;
 
-import LivMd.LivMd.LivMdPropertyType;
+import LivMd.LivMd.JottoPropertyType;
 import properties_manager.PropertiesManager;
 
 /**
@@ -41,7 +41,7 @@ public class InvalidGuessException extends Exception
     public String toString()
     {
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        String illegalWordFeedback = props.getProperty(LivMdPropertyType.INVALID_WORD_ERROR_TEXT);
+        String illegalWordFeedback = props.getProperty(JottoPropertyType.INVALID_WORD_ERROR_TEXT);
         return invalidGuessWord + illegalWordFeedback;
     }
 }

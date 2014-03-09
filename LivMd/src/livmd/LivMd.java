@@ -1,19 +1,24 @@
 package LivMd;
 
-import LivMd.ui.LivMdUI;
-import LivMd.ui.LivMdErrorHandler;
+import LivMd.ui.JottoUI;
+import LivMd.ui.JottoErrorHandler;
 import xml_utilities.InvalidXMLFileFormatException;
 import properties_manager.PropertiesManager;
 
 /**
- * LivMd 
+ * LivMd is a word game invented by Morton Rosenfeld in 1955 where players 
+ use logic to determine secret words. This version of the game is
+ * played with 5 letter words where the secret word has no repeating
+ * letters, but guess words may.
+ * 
+ * @author Richard McKenna
  */
 public class LivMd
 {
     // THIS HAS THE FULL USER INTERFACE AND ONCE IN EVENT
     // HANDLING MODE, BASICALLY IT BECOMES THE FOCAL
     // POINT, RUNNING THE UI AND EVERYTHING ELSE
-    static LivMdUI ui = new LivMdUI();
+    static JottoUI ui = new JottoUI();
     
     // WE'LL LOAD ALL THE UI AND LANGUAGE PROPERTIES FROM FILES,
     // BUT WE'LL NEED THESE VALUES TO START THE PROCESS
@@ -35,9 +40,9 @@ public class LivMd
         {
             // LOAD THE SETTINGS FOR STARTING THE APP
             PropertiesManager props = PropertiesManager.getPropertiesManager();
-            props.addProperty(LivMdPropertyType.UI_PROPERTIES_FILE_NAME, UI_PROPERTIES_FILE_NAME);
-            props.addProperty(LivMdPropertyType.PROPERTIES_SCHEMA_FILE_NAME, PROPERTIES_SCHEMA_FILE_NAME);
-            props.addProperty(LivMdPropertyType.DATA_PATH.toString(), DATA_PATH);
+            props.addProperty(JottoPropertyType.UI_PROPERTIES_FILE_NAME, UI_PROPERTIES_FILE_NAME);
+            props.addProperty(JottoPropertyType.PROPERTIES_SCHEMA_FILE_NAME, PROPERTIES_SCHEMA_FILE_NAME);
+            props.addProperty(JottoPropertyType.DATA_PATH.toString(), DATA_PATH);
             props.loadProperties(UI_PROPERTIES_FILE_NAME, PROPERTIES_SCHEMA_FILE_NAME);
                                
             // NOW START THE UI IN EVENT HANDLING MODE
@@ -47,8 +52,8 @@ public class LivMd
         catch(InvalidXMLFileFormatException ixmlffe)
         {
             // LET THE ERROR HANDLER PROVIDE THE RESPONSE
-            LivMdErrorHandler errorHandler = ui.getErrorHandler();
-            errorHandler.processError(LivMdPropertyType.INVALID_XML_FILE_ERROR_TEXT);
+            JottoErrorHandler errorHandler = ui.getErrorHandler();
+            errorHandler.processError(JottoPropertyType.INVALID_XML_FILE_ERROR_TEXT);
         }
     }
     
@@ -58,7 +63,7 @@ public class LivMd
      * makes it easy to switch between languages, which is important
      * if one wants to maximize the number of users for an application.
      */
-    public enum LivMdPropertyType
+    public enum JottoPropertyType
     {
         /* SETUP FILE NAMES */
         UI_PROPERTIES_FILE_NAME,

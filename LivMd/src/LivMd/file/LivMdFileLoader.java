@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.parser.ParserDelegator;
-import LivMd.LivMd.LivMdPropertyType;
+import LivMd.LivMd.JottoPropertyType;
 import properties_manager.PropertiesManager;
 
 /**
@@ -43,7 +43,7 @@ public class LivMdFileLoader
     {
         // FIRST BUILD THE PATH TO THE IMAGE
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        imageFile = props.getProperty(LivMdPropertyType.IMG_PATH) + imageFile;
+        imageFile = props.getProperty(JottoPropertyType.IMG_PATH) + imageFile;
 
         // START THE IMAGE LOADING - NOTE THAT THIS PROCESS HAPPENS
         // ASYNCHRONOUSLY, MEANING THE IMAGE LOADS AS A BACKGROUND
@@ -72,7 +72,7 @@ public class LivMdFileLoader
         // IF THE IMAGE NEVER LOADED, WE'LL THROW AN EXCEPTION
         if ((img == null) || (img.getWidth(null) <= 0))
         {
-            String errorMessage = props.getProperty(LivMdPropertyType.IMAGE_LOADING_ERROR_TEXT);
+            String errorMessage = props.getProperty(JottoPropertyType.IMAGE_LOADING_ERROR_TEXT);
             throw new IOException(errorMessage);
         }
 
@@ -96,7 +96,7 @@ public class LivMdFileLoader
     {
         // ADD THE PATH TO THE FILE
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        textFile = props.getProperty(LivMdPropertyType.DATA_PATH) + textFile;
+        textFile = props.getProperty(JottoPropertyType.DATA_PATH) + textFile;
         
         // WE'LL ADD ALL THE CONTENTS OF THE TEXT FILE TO THIS STRING
         String textToReturn = "";

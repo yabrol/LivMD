@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    The properties in this file are loaded when the LivMd game application
+    The properties in this file are loaded when the Jotto game application
     first loads.
 -->
 <properties>
     <property_list>    
-        <property name="WINDOW_ICON"                value="LivMdWindowIcon.png"></property>
+        <property name="WINDOW_ICON"                value="JottoWindowIcon.png"></property>
         <property name="SPLASH_SCREEN_TITLE_TEXT"   value="Select a Language"></property>
         <property name="WINDOW_WIDTH"               value="800"></property>
         <property name="WINDOW_HEIGHT"              value="620"></property>
-        <property name="SPLASH_SCREEN_IMAGE_NAME"   value="LivMdSplashScreen.png"></property>
+        <property name="SPLASH_SCREEN_IMAGE_NAME"   value="JottoSplashScreen.png"></property>
         <property name="DATA_PATH"                  value="./data/"></property>
         <property name="IMG_PATH"                   value="./img/"></property>
         <property name="LETTERS_FONT_FAMILY"        value="monospaced"></property>

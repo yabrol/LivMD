@@ -1,6 +1,6 @@
 package LivMd.ui;
 
-import LivMd.game.LivMdGameStateManager;
+import LivMd.game.LivMdStateManager;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -28,25 +28,25 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.text.Document;
 import javax.swing.text.html.HTMLDocument;
-import LivMd.LivMd.LivMdPropertyType;
+import LivMd.LivMd.JottoPropertyType;
 import LivMd.file.LivMdFileLoader;
-import LivMd.game.LivMdGameData;
+import LivMd.game.LivMdData;
 import properties_manager.PropertiesManager;
 
 /**
  * The LivMdGUI contains all user interface components and maintains all
- * presentation and interactions of the LivMd game.
+ presentation and interactions of the LivMd game.
  *
  * @author Richard McKenna,Yukti Abrol
  */
-public class LivMdUI {
+public class JottoUI {
 
   /**
    * The LivMdUIState represents the four screen states that are possible for
-   * the LivMd game application. Depending on which state is in current use,
+ the LivMd game application. Depending on which state is in current use,
    * different controls will be visible.
    */
-  public enum LivMdUIState {
+  public enum JottoUIState {
 
     SPLASH_SCREEN_STATE,
     PLAY_GAME_STATE,
@@ -55,7 +55,7 @@ public class LivMdUI {
   }
   // THIS OBJECT MAINTAINS ALL GAME STATE INFORMATION AND
   // IS COMPLETELY INDEPENDENT OF THE USER INTERFACE
-  private LivMdGameStateManager gsm;
+  private LivMdStateManager gsm;
   // THIS IS THE GAME WINDOW, WE'LL PUT ALL UI COMPONENTS IN HERE
   private JFrame window;
   // WE'LL WANT TO TRIGGER THIS FOR ALL COMPONENTS
@@ -94,9 +94,9 @@ public class LivMdUI {
   private JScrollPane helpScrollPane;
   private JEditorPane helpPane;
   // THIS CLASS WILL HANDLE ALL ACTION EVENTS FOR THIS PROGRAM
-  private LivMdEventHandler eventHandler;
+  private JottoEventHandler eventHandler;
   // THIS CLASS WILL HANDLE ALL ERRORS FOR THIS PROGRAM
-  private LivMdErrorHandler errorHandler;
+  private JottoErrorHandler errorHandler;
   // THIS CLASS WILL BUILD THE HTML WE'LL USE TO DISPLAY INFO
   private LivMdDocumentManager docManager;
   // WE'LL USE THIS TO INITIALIZE ALL BUTTONS
@@ -107,18 +107,18 @@ public class LivMdUI {
    * all the language-dependent controls, that needs to be done via the startUI
    * method after the user has selected a language.
    */
-  public LivMdUI() {
+  public JottoUI() {
     // KEEP THE GSM FOR RUNNING THE GAME
-    gsm = new LivMdGameStateManager(this);
+    gsm = new LivMdStateManager(this);
 
     // WE'LL USE THIS KEYBOARD HANDLER FOR CHEAT CODES
     cheatKeyHandler = new CheatKeyHandler(this);
 
     // WE'LL USE THIS EVENT HANDLER FOR LOTS OF CONTROLS
-    eventHandler = new LivMdEventHandler(this);
+    eventHandler = new JottoEventHandler(this);
 
     // WE'LL USE THIS ERROR HANDLER WHEN SOMETHING GOES WRONG
-    errorHandler = new LivMdErrorHandler(window);
+    errorHandler = new JottoErrorHandler(window);
 
     // THIS WILL BUILD HTML FOR OUR GAME, STATS, AND HELP PAGES
     docManager = new LivMdDocumentManager(this);
@@ -130,7 +130,7 @@ public class LivMdUI {
    *
    * @return The game state manager for this game.
    */
-  public LivMdGameStateManager getGSM() {
+  public LivMdStateManager getGSM() {
     return gsm;
   }
 
@@ -148,7 +148,7 @@ public class LivMdUI {
    *
    * @return The error handler that provides responses to error conditions.
    */
-  public LivMdErrorHandler getErrorHandler() {
+  public JottoErrorHandler getErrorHandler() {
     return errorHandler;
   }
 
@@ -230,17 +230,17 @@ public class LivMdUI {
 
     // GET THE LOADED TITLE AND SET IT IN THE FRAME
     PropertiesManager props = PropertiesManager.getPropertiesManager();
-    String title = props.getProperty(LivMdPropertyType.SPLASH_SCREEN_TITLE_TEXT);
+    String title = props.getProperty(JottoPropertyType.SPLASH_SCREEN_TITLE_TEXT);
     window.setTitle(title);
 
     // SET THE WINDOW ICON
-    String windowIconFile = props.getProperty(LivMdPropertyType.WINDOW_ICON);
+    String windowIconFile = props.getProperty(JottoPropertyType.WINDOW_ICON);
     Image windowIcon = loadImage(windowIconFile);
     window.setIconImage(windowIcon);
 
     // SIZE THE WINDOW VIA XML PROPERTIES AND DON'T LET THE WINDOW BE RESIZED
-    int windowWidth = Integer.parseInt(props.getProperty(LivMdPropertyType.WINDOW_WIDTH));
-    int windowHeight = Integer.parseInt(props.getProperty(LivMdPropertyType.WINDOW_HEIGHT));
+    int windowWidth = Integer.parseInt(props.getProperty(JottoPropertyType.WINDOW_WIDTH));
+    int windowHeight = Integer.parseInt(props.getProperty(JottoPropertyType.WINDOW_HEIGHT));
     window.setSize(windowWidth, windowHeight);
     window.setResizable(false);
   }
@@ -256,15 +256,15 @@ public class LivMdUI {
 
     // INIT THE SPLASH SCREEN CONTROLS
     PropertiesManager props = PropertiesManager.getPropertiesManager();
-    String splashScreenImagePath = props.getProperty(LivMdPropertyType.SPLASH_SCREEN_IMAGE_NAME);
+    String splashScreenImagePath = props.getProperty(JottoPropertyType.SPLASH_SCREEN_IMAGE_NAME);
     Image splashScreenImage = loadImage(splashScreenImagePath);
     ImageIcon splashIcon = new ImageIcon(splashScreenImage);
     splashScreenImageLabel = new JLabel(splashIcon);
     splashScreenImageLabel.addKeyListener(cheatKeyHandler);
 
     // GET THE LIST OF LANGUAGE OPTIONS
-    ArrayList<String> languages = props.getPropertyOptionsList(LivMdPropertyType.LANGUAGE_OPTIONS);
-    ArrayList<String> languageImages = props.getPropertyOptionsList(LivMdPropertyType.LANGUAGE_IMAGE_NAMES);
+    ArrayList<String> languages = props.getPropertyOptionsList(JottoPropertyType.LANGUAGE_OPTIONS);
+    ArrayList<String> languageImages = props.getPropertyOptionsList(JottoPropertyType.LANGUAGE_IMAGE_NAMES);
 
     // NOW, FOR EACH LANGUAGE, ADD A BUTTON
     languageSelectionPanel = new JPanel();
@@ -300,7 +300,7 @@ public class LivMdUI {
   }
 
   // NOTE THAT THE FOLLOWING INIT METHODS ARE CALLED AFTER THE LANGUAGE HAS
-  // BEEN CHOSEN BY THE USER. THE initLivMdUI IS THE ONLY ONE THAT'S PUBLIC
+  // BEEN CHOSEN BY THE USER. THE initJottoUI IS THE ONLY ONE THAT'S PUBLIC
   // AND IT GETS THE OTHERS ROLLING
   // -initWorkspace
   // -initNorthToolbar
@@ -311,13 +311,13 @@ public class LivMdUI {
    * This method initializes the language-specific game controls, which includes
    * the three primary game screens.
    */
-  public void initLivMdUI() {
+  public void initJottoUI() {
     // FIRST REMOVE THE SPLASH SCREEN
     window.getContentPane().removeAll();
 
     // GET THE UPDATED TITLE
     PropertiesManager props = PropertiesManager.getPropertiesManager();
-    String title = props.getProperty(LivMdPropertyType.GAME_TITLE_TEXT);
+    String title = props.getProperty(JottoPropertyType.GAME_TITLE_TEXT);
     window.setTitle(title);
 
     // THEN ADD ALL THE STUFF WE MIGHT NOW USE
@@ -331,7 +331,7 @@ public class LivMdUI {
     initHelpPane();
 
     // WE'LL START OUT WITH THE GAME SCREEN
-    changeWorkspace(LivMdUIState.PLAY_GAME_STATE);
+    changeWorkspace(JottoUIState.PLAY_GAME_STATE);
 
     // MAKE SURE THE WINDOW REFLECTS ALL THESE CHANGES IMMEDIATELY
     window.revalidate();
@@ -361,38 +361,38 @@ public class LivMdUI {
     northToolbar.addKeyListener(cheatKeyHandler);
 
     // MAKE AND INIT THE GAME BUTTON
-    gameButton = initToolbarButton(northToolbar, LivMdPropertyType.GAME_IMG_NAME);
-    setTooltip(gameButton, LivMdPropertyType.GAME_TOOLTIP);
+    gameButton = initToolbarButton(northToolbar, JottoPropertyType.GAME_IMG_NAME);
+    setTooltip(gameButton, JottoPropertyType.GAME_TOOLTIP);
     gameButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent ae) {
-        eventHandler.respondToSwitchScreenRequest(LivMdUIState.PLAY_GAME_STATE);
+        eventHandler.respondToSwitchScreenRequest(JottoUIState.PLAY_GAME_STATE);
       }
     });
 
     // MAKE AND INIT THE STATS BUTTON
-    statsButton = initToolbarButton(northToolbar, LivMdPropertyType.STATS_IMG_NAME);
-    setTooltip(statsButton, LivMdPropertyType.STATS_TOOLTIP);
+    statsButton = initToolbarButton(northToolbar, JottoPropertyType.STATS_IMG_NAME);
+    setTooltip(statsButton, JottoPropertyType.STATS_TOOLTIP);
     statsButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent ae) {
-        eventHandler.respondToSwitchScreenRequest(LivMdUIState.VIEW_STATS_STATE);
+        eventHandler.respondToSwitchScreenRequest(JottoUIState.VIEW_STATS_STATE);
       }
     });
 
     // MAKE AND INIT THE HELP BUTTON
-    helpButton = initToolbarButton(northToolbar, LivMdPropertyType.HELP_IMG_NAME);
-    setTooltip(helpButton, LivMdPropertyType.HELP_TOOLTIP);
+    helpButton = initToolbarButton(northToolbar, JottoPropertyType.HELP_IMG_NAME);
+    setTooltip(helpButton, JottoPropertyType.HELP_TOOLTIP);
     helpButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent ae) {
-        eventHandler.respondToSwitchScreenRequest(LivMdUIState.VIEW_HELP_STATE);
+        eventHandler.respondToSwitchScreenRequest(JottoUIState.VIEW_HELP_STATE);
       }
     });
 
     // MAKE AND INIT THE EXIT BUTTON
-    exitButton = initToolbarButton(northToolbar, LivMdPropertyType.EXIT_IMG_NAME);
-    setTooltip(exitButton, LivMdPropertyType.EXIT_TOOLTIP);
+    exitButton = initToolbarButton(northToolbar, JottoPropertyType.EXIT_IMG_NAME);
+    setTooltip(exitButton, JottoPropertyType.EXIT_TOOLTIP);
     exitButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent ae) {
@@ -414,7 +414,7 @@ public class LivMdUI {
    *
    * @return A constructed button initialized and added to the toolbar.
    */
-  private JButton initToolbarButton(JPanel toolbar, LivMdPropertyType prop) {
+  private JButton initToolbarButton(JPanel toolbar, JottoPropertyType prop) {
     // GET THE NAME OF THE IMAGE, WE DO THIS BECAUSE THE
     // IMAGES WILL BE NAMED DIFFERENT THINGS FOR DIFFERENT LANGUAGES
     PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -450,7 +450,7 @@ public class LivMdUI {
     gamePane.setContentType("text/html");
 
     // LET'S LOAD THE INITIAL HTML INTO THE STATS EDITOR PAGE
-    this.loadPage(gamePane, LivMdPropertyType.GAME_FILE_NAME);
+    this.loadPage(gamePane, JottoPropertyType.GAME_FILE_NAME);
     HTMLDocument gameDoc = (HTMLDocument) gamePane.getDocument();
     docManager.setGameDoc(gameDoc);
     JScrollPane guessesScrollPane = new JScrollPane(gamePane);
@@ -464,7 +464,7 @@ public class LivMdUI {
     JPanel guessingPanel = new JPanel();
     guessingPanel.setBackground(Color.LIGHT_GRAY);
     guessingPanel.addKeyListener(cheatKeyHandler);
-    String wordGuessText = props.getProperty(LivMdPropertyType.GUESS_LABEL);
+    String wordGuessText = props.getProperty(JottoPropertyType.GUESS_LABEL);
     wordGuessLabel = new JLabel(wordGuessText);
     guessingPanel.add(wordGuessLabel);
     wordGuessTextField = new JTextField(20);
@@ -494,15 +494,15 @@ public class LivMdUI {
     });
 
     // THIS SETS UP THE FONTS USED FOR THE GUESS TEXT FIELD AND LABEL
-    String fontGuessFamily = props.getProperty(LivMdPropertyType.GUESSES_FONT_FAMILY);
-    int fontGuessSize = Integer.parseInt(props.getProperty(LivMdPropertyType.GUESSES_FONT_SIZE));
+    String fontGuessFamily = props.getProperty(JottoPropertyType.GUESSES_FONT_FAMILY);
+    int fontGuessSize = Integer.parseInt(props.getProperty(JottoPropertyType.GUESSES_FONT_SIZE));
     Font guessFont = new Font(fontGuessFamily, Font.BOLD, fontGuessSize);
     wordGuessLabel.setFont(guessFont);
     wordGuessTextField.setFont(guessFont);
 
     // THE NEW GAME BUTTON IS LAST CONTROL FOR THE NORTH OF THE SOUTH
-    newGameButton = this.initToolbarButton(guessingPanel, LivMdPropertyType.NEW_GAME_IMG_NAME);
-    setTooltip(newGameButton, LivMdPropertyType.NEW_GAME_TOOLTIP);
+    newGameButton = this.initToolbarButton(guessingPanel, JottoPropertyType.NEW_GAME_IMG_NAME);
+    setTooltip(newGameButton, JottoPropertyType.NEW_GAME_TOOLTIP);
     newGameButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent ae) {
@@ -513,12 +513,12 @@ public class LivMdUI {
     // WE'LL PUT THE LETTER BUTTONS IN THE SOUTH OF THE SOUTH
     letterButtonsPanel = new JPanel();
     letterButtonsPanel.setBackground(Color.LIGHT_GRAY);
-    ArrayList<String> letters = props.getPropertyOptionsList(LivMdPropertyType.LETTER_OPTIONS);
+    ArrayList<String> letters = props.getPropertyOptionsList(JottoPropertyType.LETTER_OPTIONS);
 
     // WE'LL STORE THE ALPHABET LETTERS IN A NICE EASY TO ACCESS HASH TABLE
     letterButtons = new HashMap();
-    String fontFamily = props.getProperty(LivMdPropertyType.LETTERS_FONT_FAMILY);
-    int fontSize = Integer.parseInt(props.getProperty(LivMdPropertyType.LETTERS_FONT_SIZE));
+    String fontFamily = props.getProperty(JottoPropertyType.LETTERS_FONT_FAMILY);
+    int fontSize = Integer.parseInt(props.getProperty(JottoPropertyType.LETTERS_FONT_SIZE));
     Font lettersFont = new Font(fontFamily, Font.BOLD, fontSize);
     for (int i = 0; i < letters.size(); i++) {
       // MAKE A BUTTON FOR EACH CHARACTER
@@ -552,7 +552,7 @@ public class LivMdUI {
 
     // NOW MAKE THIS PANEL PART OF THE WORKSPACE, WHICH MEANS WE
     // CAN EASILY SWITCH TO IT AT ANY TIME
-    workspace.add(gamePanel, LivMdUIState.PLAY_GAME_STATE.toString());
+    workspace.add(gamePanel, JottoUIState.PLAY_GAME_STATE.toString());
   }
 
   /**
@@ -567,13 +567,13 @@ public class LivMdUI {
     // LOAD THE STARTING STATS PAGE, WHICH IS JUST AN OUTLINE
     // AND DOESN"T HAVE ANY OF THE STATS, SINCE THOSE WILL 
     // BE DYNAMICALLY ADDED
-    loadPage(statsPane, LivMdPropertyType.STATS_FILE_NAME);
+    loadPage(statsPane, JottoPropertyType.STATS_FILE_NAME);
     HTMLDocument statsDoc = (HTMLDocument) statsPane.getDocument();
     docManager.setStatsDoc(statsDoc);
     statsScrollPane = new JScrollPane(statsPane);
 
     // NOW ADD IT TO THE WORKSPACE, MEANING WE CAN SWITCH TO IT
-    workspace.add(statsScrollPane, LivMdUIState.VIEW_STATS_STATE.toString());
+    workspace.add(statsScrollPane, JottoUIState.VIEW_STATS_STATE.toString());
   }
 
   /**
@@ -587,8 +587,8 @@ public class LivMdUI {
     
     homeToolbar = new JPanel();
     homeToolbar.setBackground(Color.YELLOW);
-    homeButton = initToolbarButton(homeToolbar, LivMdPropertyType.HOME_IMG_NAME);
-    setTooltip(homeButton, LivMdPropertyType.HOME_TOOLTIP);
+    homeButton = initToolbarButton(homeToolbar, JottoPropertyType.HOME_IMG_NAME);
+    setTooltip(homeButton, JottoPropertyType.HOME_TOOLTIP);
     homeButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent ae) {
@@ -607,14 +607,14 @@ public class LivMdUI {
     helpPanel.add(helpScrollPane, BorderLayout.CENTER);
 
     // LOAD THE HELP PAGE
-    loadPage(helpPane, LivMdPropertyType.HELP_FILE_NAME);
+    loadPage(helpPane, JottoPropertyType.HELP_FILE_NAME);
 
     // LET OUR HELP SCREEN JOURNEY AROUND THE WEB VIA HYPERLINK
     HelpHyperlinkListener hhl = new HelpHyperlinkListener(this);
     helpPane.addHyperlinkListener(hhl);
 
     // ADD IT TO THE WORKSPACE
-    workspace.add(helpPanel, LivMdUIState.VIEW_HELP_STATE.toString());
+    workspace.add(helpPanel, JottoUIState.VIEW_HELP_STATE.toString());
   }
 
   // ADDITIONAL HELPER METHODS - THESE HELP INIT METHOD IN PARTICULAR
@@ -637,7 +637,7 @@ public class LivMdUI {
       Image imageToLoad = LivMdFileLoader.loadImage(imageName, window);
       return imageToLoad;
     } catch (IOException ioe) {
-      errorHandler.processError(LivMdPropertyType.IMAGE_LOADING_ERROR_TEXT);
+      errorHandler.processError(JottoPropertyType.IMAGE_LOADING_ERROR_TEXT);
     }
     // THIS IS A DUMMY IMAGE THAT WE'LL RETURN SO THAT THE
     // UI CAN USE IT AS A STANDING
@@ -664,7 +664,7 @@ public class LivMdUI {
    *
    * @param tooltip The text to set as the tooltip.
    */
-  private void setTooltip(JButton button, LivMdPropertyType tooltip) {
+  private void setTooltip(JButton button, JottoPropertyType tooltip) {
     // GET THE TEXT AND SET IT AS THE TOOLITP
     PropertiesManager props = PropertiesManager.getPropertiesManager();
     String tooltipText = props.getProperty(tooltip);
@@ -680,7 +680,7 @@ public class LivMdUI {
    *
    * @param uiScreen The screen to be switched to.
    */
-  public void changeWorkspace(LivMdUIState uiScreen) {
+  public void changeWorkspace(JottoUIState uiScreen) {
     // SWITCH TO THE REQUESTED SCREEN
     CardLayout workspaceCardLayout = (CardLayout) workspace.getLayout();
     workspaceCardLayout.show(workspace, uiScreen.toString());
@@ -701,7 +701,7 @@ public class LivMdUI {
    */
   public void displaySecretWord() {
     // ONLY DO SO IF THE GAME IS IN PROGRESS
-    LivMdGameData gameInProgress = gsm.getGameInProgress();
+    LivMdData gameInProgress = gsm.getGameInProgress();
     if (gameInProgress != null) {
       window.setTitle(gameInProgress.getSecretWord());
     }
@@ -717,7 +717,7 @@ public class LivMdUI {
    * from the property manager.
    */
   public void loadPage(JEditorPane jep,
-          LivMdPropertyType fileProperty) {
+          JottoPropertyType fileProperty) {
     // GET THE FILE NAME
     PropertiesManager props = PropertiesManager.getPropertiesManager();
     String fileName = props.getProperty(fileProperty);
@@ -726,7 +726,7 @@ public class LivMdUI {
       String fileHTML = LivMdFileLoader.loadTextFile(fileName);
       jep.setText(fileHTML);
     } catch (IOException ioe) {
-      errorHandler.processError(LivMdPropertyType.INVALID_URL_ERROR_TEXT);
+      errorHandler.processError(JottoPropertyType.INVALID_URL_ERROR_TEXT);
     }
   }
 
@@ -742,7 +742,7 @@ public class LivMdUI {
       doc.putProperty(Document.StreamDescriptionProperty, null);
       helpPane.setPage(link);
     } catch (IOException ioe) {
-      errorHandler.processError(LivMdPropertyType.INVALID_URL_ERROR_TEXT);
+      errorHandler.processError(JottoPropertyType.INVALID_URL_ERROR_TEXT);
     }
   }
 

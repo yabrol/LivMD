@@ -14,13 +14,13 @@ import javax.swing.event.HyperlinkListener;
 public class HelpHyperlinkListener implements HyperlinkListener
 {
     // WE'LL NEED TO UPDATE THIS WHEN A LINK IS ACTIVATED
-    private LivMdUI ui;
+    private JottoUI ui;
 
     /**
      * This constructor simply saves the ui for later.
      * @param initUI 
      */
-    public HelpHyperlinkListener(LivMdUI initUI)
+    public HelpHyperlinkListener(JottoUI initUI)
     {
         // WE'LL NEED TO USE THIS WHEN A LINK IS CLICKED, SO
         // LET'S KEEP IT FOR LATER

@@ -8,14 +8,14 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Element;
 import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
-import LivMd.LivMd.LivMdPropertyType;
-import LivMd.game.LivMdGameData;
-import LivMd.game.LivMdGameStateManager;
+import LivMd.LivMd.JottoPropertyType;
+import LivMd.game.LivMdData;
+import LivMd.game.LivMdStateManager;
 import properties_manager.PropertiesManager;
 
 /**
  * LivMdHTMLBuilder generates HTML content for display inside the LivMd game
- * application, including the in-game GUI and the stats page. Note that we
+ application, including the in-game GUI and the stats page. Note that we
  * maintain both of these pages inside Documents, which store trees containing
  * all the HTML. We will make use of HTML.Tag constants to update these DOMs
  * (Document Object Models).
@@ -23,10 +23,10 @@ import properties_manager.PropertiesManager;
  * @author Richard McKenna, Yukti Abrol
  */
 public class LivMdDocumentManager {
-  // THE LivMd GAME'S UI HAS ACCESS TO ALL COMPONENTS, SO
+  // THE JOTTO GAME'S UI HAS ACCESS TO ALL COMPONENTS, SO
   // IT'S USEFUL TO HAVE IT WHEN WE NEED IT
 
-  private LivMdUI ui;
+  private JottoUI ui;
   // THESE ARE THE DOCUMENTS WE'LL BE UPDATING HERE
   private HTMLDocument gameDoc;
   private HTMLDocument statsDoc;
@@ -64,7 +64,7 @@ public class LivMdDocumentManager {
    *
    * @param initUI
    */
-  public LivMdDocumentManager(LivMdUI initUI) {
+  public LivMdDocumentManager(JottoUI initUI) {
     // KEEP THE UI FOR LATER
     ui = initUI;
   }
@@ -107,11 +107,11 @@ public class LivMdDocumentManager {
    */
   public void addGuessToGamePage(String guess) {
     PropertiesManager props = PropertiesManager.getPropertiesManager();
-    LivMdGameData gameInProgress = ui.getGSM().getGameInProgress();
+    LivMdData gameInProgress = ui.getGSM().getGameInProgress();
 
     try {
       // START BY LOADING THE LANGUAGE-DEPENDENT SUBHEADER
-      String guessesSubheaderText = props.getProperty(LivMdPropertyType.GAME_SUBHEADER_TEXT);
+      String guessesSubheaderText = props.getProperty(JottoPropertyType.GAME_SUBHEADER_TEXT);
       Element h2 = gameDoc.getElement(GUESSES_SUBHEADER_ID);
       gameDoc.setInnerHTML(h2, guessesSubheaderText);
 
@@ -125,8 +125,8 @@ public class LivMdDocumentManager {
     // THE HTML FOR THE PAGE, WHICH WOULD LIKELY BE DUE TO BAD DATA FROM
     // AN XML SETUP FILE
     catch (BadLocationException | IOException e) {
-      LivMdErrorHandler errorHandler = ui.getErrorHandler();
-      errorHandler.processError(LivMdPropertyType.INVALID_DOC_ERROR_TEXT);
+      JottoErrorHandler errorHandler = ui.getErrorHandler();
+      errorHandler.processError(JottoPropertyType.INVALID_DOC_ERROR_TEXT);
     }
   }
 
@@ -186,8 +186,8 @@ public class LivMdDocumentManager {
     // THE HTML FOR THE PAGE, WHICH WOULD LIKELY BE DUE TO BAD DATA FROM
     // AN XML SETUP FILE
     catch (BadLocationException | IOException ex) {
-      LivMdErrorHandler errorHandler = ui.getErrorHandler();
-      errorHandler.processError(LivMdPropertyType.INVALID_DOC_ERROR_TEXT);
+      JottoErrorHandler errorHandler = ui.getErrorHandler();
+      errorHandler.processError(JottoPropertyType.INVALID_DOC_ERROR_TEXT);
     }
   }
 
@@ -198,9 +198,9 @@ public class LivMdDocumentManager {
    *
    * @param completedGame Game whose summary will be added to the stats page.
    */
-  public void addGameResultToStatsPage(LivMdGameData completedGame) {
+  public void addGameResultToStatsPage(LivMdData completedGame) {
     // GET THE GAME STATS
-    LivMdGameStateManager gsm = ui.getGSM();
+    LivMdStateManager gsm = ui.getGSM();
     PropertiesManager props = PropertiesManager.getPropertiesManager();
     int gamesPlayed = gsm.getGamesPlayed();
     int wins = gsm.getWins();
@@ -224,7 +224,7 @@ public class LivMdDocumentManager {
       statsDoc.setInnerHTML(fastestWinElement, EMPTY_TEXT + calculateFast());
 
       Element gameResultsHeaderElement = statsDoc.getElement(GAME_RESULTS_HEADER_ID);
-      String resultsSubheaderText = props.getProperty(LivMdPropertyType.GAME_RESULTS_TEXT);
+      String resultsSubheaderText = props.getProperty(JottoPropertyType.GAME_RESULTS_TEXT);
       statsDoc.setInnerHTML(gameResultsHeaderElement, resultsSubheaderText);
 
       Element gameResultsElement = statsDoc.getElement(GAME_RESULTS_LIST_ID);
@@ -234,8 +234,8 @@ public class LivMdDocumentManager {
     // WHICH COULD HAPPEN IF XML SETUP FILES ARE IMPROPERLY
     // FORMATTED
     catch (BadLocationException | IOException e) {
-      LivMdErrorHandler errorHandler = ui.getErrorHandler();
-      errorHandler.processError(LivMdPropertyType.INVALID_DOC_ERROR_TEXT);
+      JottoErrorHandler errorHandler = ui.getErrorHandler();
+      errorHandler.processError(JottoPropertyType.INVALID_DOC_ERROR_TEXT);
     }
   }
 
@@ -245,8 +245,8 @@ public class LivMdDocumentManager {
    */
   private String listAllGames() {
     String allText = START_TAG + HTML.Tag.OL + END_TAG;
-    Iterator<LivMdGameData> gamesHistory = ui.getGSM().getGamesHistoryIterator();
-    LivMdGameData currGame;
+    Iterator<LivMdData> gamesHistory = ui.getGSM().getGamesHistoryIterator();
+    LivMdData currGame;
     if (!gamesHistory.hasNext()) {
       allText = "-";
     } else {
@@ -267,9 +267,9 @@ public class LivMdDocumentManager {
    */
   private String calculcateFewest() {
     String fewText;
-    LivMdGameData shortGame, currGame;
+        LivMdData shortGame, currGame;
     shortGame = null;
-    Iterator<LivMdGameData> gamesHistory = ui.getGSM().getGamesHistoryIterator();
+    Iterator<LivMdData> gamesHistory = ui.getGSM().getGamesHistoryIterator();
     //find the shortest game
     if (gamesHistory.hasNext()) {
       currGame = gamesHistory.next();
@@ -301,9 +301,9 @@ public class LivMdDocumentManager {
    */
   private String calculateFast() {
     String fastText;
-    LivMdGameData shortGame, currGame;
+        LivMdData shortGame, currGame;
     shortGame = null;
-    Iterator<LivMdGameData> gamesHistory = ui.getGSM().getGamesHistoryIterator();
+    Iterator<LivMdData> gamesHistory = ui.getGSM().getGamesHistoryIterator();
     //find the shortest game
     if (gamesHistory.hasNext()) {
       currGame = gamesHistory.next();
@@ -335,11 +335,11 @@ public class LivMdDocumentManager {
    */
   public void addWinLabel() {
     PropertiesManager props = PropertiesManager.getPropertiesManager();
-    LivMdGameData gameInProgress = ui.getGSM().getGameInProgress();
+    LivMdData gameInProgress = ui.getGSM().getGameInProgress();
 
     try {
       // START BY LOADING THE LANGUAGE-DEPENDENT SUBHEADER
-      String winText = props.getProperty(LivMdPropertyType.WIN_DISPLAY_TEXT);
+      String winText = props.getProperty(JottoPropertyType.WIN_DISPLAY_TEXT);
       String htmlWinText = START_TAG + HTML.Tag.H1 + SPACE + HTML.Attribute.ID
               + EQUAL + QUOTE + WIN_DISPLAY_ID + QUOTE + HTML.Attribute.STYLE
               + EQUAL + QUOTE + "font-size:150%" + QUOTE + END_TAG + START_TAG
@@ -354,8 +354,8 @@ public class LivMdDocumentManager {
     // THE HTML FOR THE PAGE, WHICH WOULD LIKELY BE DUE TO BAD DATA FROM
     // AN XML SETUP FILE
     catch (BadLocationException | IOException e) {
-      LivMdErrorHandler errorHandler = ui.getErrorHandler();
-      errorHandler.processError(LivMdPropertyType.INVALID_DOC_ERROR_TEXT);
+      JottoErrorHandler errorHandler = ui.getErrorHandler();
+      errorHandler.processError(JottoPropertyType.INVALID_DOC_ERROR_TEXT);
     }
   }
 
@@ -368,10 +368,10 @@ public class LivMdDocumentManager {
    * @param bgColor The color of the background that the character will have.
    */
   public void updateGuessColors() {
-    LivMdGameData gameInProgress = ui.getGSM().getGameInProgress();
+    LivMdData gameInProgress = ui.getGSM().getGameInProgress();
     PropertiesManager props = PropertiesManager.getPropertiesManager();
     try {
-      ArrayList<String> letters = props.getPropertyOptionsList(LivMdPropertyType.LETTER_OPTIONS);
+      ArrayList<String> letters = props.getPropertyOptionsList(JottoPropertyType.LETTER_OPTIONS);
             
       ArrayList<Character> red = new ArrayList<Character>();
       ArrayList<Character> green = new ArrayList<Character>();
@@ -442,8 +442,8 @@ public class LivMdDocumentManager {
     // THE HTML FOR THE PAGE, WHICH WOULD LIKELY BE DUE TO BAD DATA FROM
     // AN XML SETUP FILE
     catch (BadLocationException | IOException e) {
-      LivMdErrorHandler errorHandler = ui.getErrorHandler();
-      errorHandler.processError(LivMdPropertyType.INVALID_DOC_ERROR_TEXT);
+      JottoErrorHandler errorHandler = ui.getErrorHandler();
+      errorHandler.processError(JottoPropertyType.INVALID_DOC_ERROR_TEXT);
     }
   }
 }

@@ -3,19 +3,19 @@ package LivMd.game;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import LivMd.ui.LivMdUI;
+import LivMd.ui.JottoUI;
 
 /**
- * LivMdGameStateManager manages all the data for LivMd. Note that it does
+ * LivMdStateManager manages all the data for Jotto. Note that it does
  * so completely independent of the presentation of the game.
  * 
  * @author Richard McKenna, Yukti Abrol
  */
-public class LivMdGameStateManager
+public class LivMdStateManager
 {
     // THE GAME WILL ALWAYS BE IN
     // ONE OF THESE THREE STATES
-    public enum LivMdGameState
+    public enum JottoGameState
     {
         GAME_NOT_STARTED,
         GAME_IN_PROGRESS,
@@ -23,12 +23,12 @@ public class LivMdGameStateManager
     }
     
     // STORES THE CURRENT STATE OF THIS GAME
-    private LivMdGameState currentGameState;
+    private JottoGameState currentGameState;
     
     // WHEN THE STATE OF THE GAME CHANGES IT WILL NEED TO BE
     // REFLECTED IN THE USER INTERFACE, SO THIS CLASS NEEDS
     // A REFERENCE TO THE UI
-    private LivMdUI ui;
+    private JottoUI ui;
 
     // THIS IS THE DICTIONARY OF LEGAL GUESS WORDS
     private ArrayList<String> wordList;
@@ -38,11 +38,11 @@ public class LivMdGameStateManager
     private ArrayList<String> nonRepeatingWordList;
     
     // THIS IS THE GAME CURRENTLY BEING PLAYED
-    private LivMdGameData gameInProgress;
+    private LivMdData gameInProgress;
     
     // HOLDS ALL OF THE COMPLETED GAMES. NOTE THAT THE GAME
     // IN PROGRESS IS NOT ADDED UNTIL IT IS COMPLETED
-    private ArrayList<LivMdGameData> gamesHistory;
+    private ArrayList<LivMdData> gamesHistory;
     
     // THIS IS 
     private final String NEWLINE_DELIMITER = "\n";
@@ -51,17 +51,17 @@ public class LivMdGameStateManager
      * This constructor initializes this class for use, but does
      * not start a game.
      * 
-     * @param initUI A reference to the LivMd user interface, this
+     * @param initUI A reference to the Jotto user interface, this
      * game state manager needs to inform it of when this state
      * changes so that it can display the appropriate changes.
      */
-    public LivMdGameStateManager(LivMdUI initUI)
+    public LivMdStateManager(JottoUI initUI)
     {
         // STORE THIS FOR LATER
         ui = initUI;
         
         // WE HAVE NOT STARTED A GAME YET
-        currentGameState = LivMdGameState.GAME_NOT_STARTED;
+        currentGameState = JottoGameState.GAME_NOT_STARTED;
         
         // NO GAMES HAVE BEEN PLAYED YET, BUT INITIALIZE
         // THE DATA STRCUTURE FOR PLACING COMPLETED GAMES
@@ -78,7 +78,7 @@ public class LivMdGameStateManager
      * 
      * @return The game currently being played.
      */
-    public LivMdGameData    getGameInProgress() { return gameInProgress; }
+    public LivMdData    getGameInProgress() { return gameInProgress; }
     
     /**
      * Accessor method for getting the number of games that have been played.
@@ -94,7 +94,7 @@ public class LivMdGameStateManager
      * @return An Iterator that allows one to go through all the games
      * that have been played so far.
      */
-    public Iterator<LivMdGameData> getGamesHistoryIterator() { return gamesHistory.iterator(); }
+    public Iterator<LivMdData> getGamesHistoryIterator() { return gamesHistory.iterator(); }
     
     /**
      * Accessor method for testing to see if any games have been started yet.
@@ -102,21 +102,21 @@ public class LivMdGameStateManager
      * @return true if at least one game has already been started during this
      * session, false otherwise.
      */
-    public boolean          isGameNotStarted()       { return currentGameState == LivMdGameState.GAME_NOT_STARTED; }
+    public boolean          isGameNotStarted()       { return currentGameState == JottoGameState.GAME_NOT_STARTED; }
     
     /**
      * Accessor method for testing to see if the current game is over.
      * 
      * @return true if the game in progress has completed, false otherwise.
      */
-    public boolean          isGameOver()        { return currentGameState == LivMdGameState.GAME_OVER; }
+    public boolean          isGameOver()        { return currentGameState == JottoGameState.GAME_OVER; }
 
     /**
      * Accessor method for testing to see if the current game is in progress.
      * 
      * @return true if a game is in progress, false otherwise.
      */
-    public boolean          isGameInProgress()  { return currentGameState == LivMdGameState.GAME_IN_PROGRESS; }
+    public boolean          isGameInProgress()  { return currentGameState == JottoGameState.GAME_IN_PROGRESS; }
     
     /**
      * Counts and returns the number of wins during this game session.
@@ -127,12 +127,12 @@ public class LivMdGameStateManager
     public int getWins()
     {
         // ITERATE THROUGH ALL THE COMPLETED GAMES
-        Iterator<LivMdGameData> it = gamesHistory.iterator();
+        Iterator<LivMdData> it = gamesHistory.iterator();
         int wins = 0;
         while(it.hasNext())
         {
             // GET THE NEXT GAME IN THE SEQUENCE
-            LivMdGameData game = it.next();
+            LivMdData game = it.next();
             
             // IF IT ENDED IN A WIN, INC THE COUNTER
             if (game.isWordFound())
@@ -265,10 +265,10 @@ public class LivMdGameStateManager
         String secretWord = nonRepeatingWordList.get(randomNum);
         
         // THEN MAKE THE GAME WITH IT
-        gameInProgress = new LivMdGameData(secretWord);
+        gameInProgress = new LivMdData(secretWord);
         
         // THE GAME IS OFFICIALLY UNDERWAY
-        currentGameState = LivMdGameState.GAME_IN_PROGRESS;
+        currentGameState = JottoGameState.GAME_IN_PROGRESS;
     }
     
     /**
@@ -315,7 +315,7 @@ public class LivMdGameStateManager
         if (gameInProgress.isWordFound())
         {
             // CHANGE THE GAME STATE
-            currentGameState = LivMdGameState.GAME_OVER;
+            currentGameState = JottoGameState.GAME_OVER;
             
             //Add the YOU WIN! label
             ui.getDocManager().addWinLabel();

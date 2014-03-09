@@ -2,18 +2,18 @@ package LivMd.ui;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import LivMd.LivMd.LivMdPropertyType;
+import LivMd.LivMd.JottoPropertyType;
 import properties_manager.PropertiesManager;
 
 /**
  * This class handles any expected problems that could happen
- * during the execution of the LivMd game. For example when
+ during the execution of the LivMd game. For example when
  * improperly XML files are loaded or the user provides improper
  * input.
  * 
  * @author Richard McKenna
  */
-public class LivMdErrorHandler
+public class JottoErrorHandler
 {
     // WE'LL CENTER DIALOG BOXES OVER THE WINDOW, SO WE NEED THIS
     private JFrame window;
@@ -23,7 +23,7 @@ public class LivMdErrorHandler
      * 
      * @param initWindow 
      */
-    public LivMdErrorHandler(JFrame initWindow)
+    public JottoErrorHandler(JFrame initWindow)
     {
         // KEEP THE WINDOW FOR LATER
         window = initWindow;
@@ -37,14 +37,14 @@ public class LivMdErrorHandler
      * @param errorType Identifies the type of error that happened, which
      * allows us to get and display different text for different errors.
      */
-    public void processError(LivMdPropertyType errorType)
+    public void processError(JottoPropertyType errorType)
     {
         // GET THE FEEDBACK TEXT
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         String errorFeedbackText = props.getProperty(errorType);
         
         // NOTE THAT WE'LL USE THE SAME DIALOG TITLE FOR ALL ERROR TYPES
-        String errorTitle = props.getProperty(LivMdPropertyType.ERROR_DIALOG_TITLE_TEXT);
+        String errorTitle = props.getProperty(JottoPropertyType.ERROR_DIALOG_TITLE_TEXT);
         
         // POP OPEN A DIALOG TO DISPLAY TO THE USER
         JOptionPane.showMessageDialog(window, errorFeedbackText, errorTitle, JOptionPane.ERROR_MESSAGE);

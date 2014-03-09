@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <properties>
     <property_list>    
-        <property name="GAME_TITLE_TEXT" value="LivMd - La kvin letero vorto ludo."></property>
+        <property name="GAME_TITLE_TEXT" value="Jotto - La kvin letero vorto ludo."></property>
         
         <!-- THESE ARE THE GUI IMAGES -->
         <property name="GAME_IMG_NAME"      value="EO_Ludo.png"></property>
@@ -32,7 +32,7 @@
         <property name="HELP_TOOLTIP"           value="Go to Help Ekrano"></property>
         <property name="EXIT_TOOLTIP"           value="Eliro La Ludo Apliko"></property>
         <property name="NEW_GAME_TOOLTIP"       value="Komenci Nova Ludo"></property>
-        <property name="HOME_TOOLTIP"           value="Iri Hejmen al LivMd Helpo Paĝo"></property>
+        <property name="HOME_TOOLTIP"           value="Iri Hejmen al Jotto Helpo Paĝo"></property>
         
         <!-- ERROR FEEDBACK TEXT -->
         <property name="ERROR_DIALOG_TITLE_TEXT"            value="An Eraro Ĉu okazis"></property>

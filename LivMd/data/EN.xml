@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <properties>
     <property_list>    
-        <property name="GAME_TITLE_TEXT" value="LivMd - The Five Letter Word Game"></property>
+        <property name="GAME_TITLE_TEXT" value="Jotto - The Five Letter Word Game"></property>
         
         <!-- THESE ARE THE GUI IMAGES -->
         <property name="GAME_IMG_NAME"          value="EN_Game.png"></property>
@@ -32,7 +32,7 @@
         <property name="HELP_TOOLTIP"           value="Go to Help Screen"></property>
         <property name="EXIT_TOOLTIP"           value="Exit the Game Application"></property>
         <property name="NEW_GAME_TOOLTIP"       value="Start a New Game"></property>
-        <property name="HOME_TOOLTIP"           value="Go Home to LivMd Help Page"></property>
+        <property name="HOME_TOOLTIP"           value="Go Home to Jotto Help Page"></property>
         
         <!-- ERROR FEEDBACK TEXT -->
         <property name="ERROR_DIALOG_TITLE_TEXT"            value="An Error Has Occured"></property>

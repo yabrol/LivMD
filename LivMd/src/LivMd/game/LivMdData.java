@@ -5,13 +5,13 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 
 /**
- * LivMdGameData stores the data necessary for a single LivMd game. Note that
- * this class works in concert with the LivMdGameStateManager, so all instance
+ * LivMdData stores the data necessary for a single Jotto game. Note that
+ * this class works in concert with the JottoGameStateManager, so all instance
  * variables have default (package-level) access.
  *
  * @author Richard McKenna, Yukti Abrol
  */
-public class LivMdGameData {
+public class LivMdData {
   // THE WORD THE PLAYER IS TRYING TO GUESS
 
   String secretWord;
@@ -32,7 +32,7 @@ public class LivMdGameData {
   /*
    * Construct this object when a game begins.
    */
-  public LivMdGameData(String initSecretWord) {
+  public LivMdData(String initSecretWord) {
     secretWord = initSecretWord;
     wordFound = false;
     guesses = new ArrayList();
