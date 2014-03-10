@@ -25,18 +25,12 @@
     <property_options_list>
         <property_options name="LANGUAGE_OPTIONS">
             <option>English</option>
-            <option>Esperanto</option>
-            <option>Deutsch</option>
         </property_options>
         <property_options name="LANGUAGE_DATA_FILE_NAMES">
             <option>EN.xml</option>
-            <option>EO.xml</option>
-            <option>GM.xml</option>
         </property_options>
         <property_options name="LANGUAGE_IMAGE_NAMES">
             <option>EN.png</option>
-            <option>EO.png</option>
-            <option>GM.png</option>
         </property_options>
     </property_options_list>
 </properties>
