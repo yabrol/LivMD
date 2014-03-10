@@ -17,9 +17,9 @@ public class LivMdStateManager
     // ONE OF THESE THREE STATES
     public enum JottoGameState
     {
-        GAME_NOT_STARTED,
-        GAME_IN_PROGRESS,
-        GAME_OVER
+        NOT_LOGGED_IN,
+        LOGGED_IN,
+        LOGGED_OUT
     }
     
     // STORES THE CURRENT STATE OF THIS GAME
@@ -61,7 +61,7 @@ public class LivMdStateManager
         ui = initUI;
         
         // WE HAVE NOT STARTED A GAME YET
-        currentGameState = JottoGameState.GAME_NOT_STARTED;
+        currentGameState = JottoGameState.NOT_LOGGED_IN;
         
         // NO GAMES HAVE BEEN PLAYED YET, BUT INITIALIZE
         // THE DATA STRCUTURE FOR PLACING COMPLETED GAMES
@@ -102,21 +102,21 @@ public class LivMdStateManager
      * @return true if at least one game has already been started during this
      * session, false otherwise.
      */
-    public boolean          isGameNotStarted()       { return currentGameState == JottoGameState.GAME_NOT_STARTED; }
+    public boolean          isGameNotStarted()       { return currentGameState == JottoGameState.NOT_LOGGED_IN; }
     
     /**
      * Accessor method for testing to see if the current game is over.
      * 
      * @return true if the game in progress has completed, false otherwise.
      */
-    public boolean          isGameOver()        { return currentGameState == JottoGameState.GAME_OVER; }
+    public boolean          isGameOver()        { return currentGameState == JottoGameState.LOGGED_OUT; }
 
     /**
      * Accessor method for testing to see if the current game is in progress.
      * 
      * @return true if a game is in progress, false otherwise.
      */
-    public boolean          isGameInProgress()  { return currentGameState == JottoGameState.GAME_IN_PROGRESS; }
+    public boolean          isGameInProgress()  { return currentGameState == JottoGameState.LOGGED_IN; }
     
     /**
      * Counts and returns the number of wins during this game session.
@@ -268,7 +268,7 @@ public class LivMdStateManager
         gameInProgress = new LivMdData(secretWord);
         
         // THE GAME IS OFFICIALLY UNDERWAY
-        currentGameState = JottoGameState.GAME_IN_PROGRESS;
+        currentGameState = JottoGameState.LOGGED_IN;
     }
     
     /**
@@ -315,7 +315,7 @@ public class LivMdStateManager
         if (gameInProgress.isWordFound())
         {
             // CHANGE THE GAME STATE
-            currentGameState = JottoGameState.GAME_OVER;
+            currentGameState = JottoGameState.LOGGED_OUT;
             
             //Add the YOU WIN! label
             ui.getDocManager().addWinLabel();
