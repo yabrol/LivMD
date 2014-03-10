@@ -14,7 +14,7 @@ import java.awt.event.KeyEvent;
 public class CheatKeyHandler extends KeyAdapter
 {
     // THE UI HAS EVERYTHING WE NEED
-    private JottoUI ui;
+    private LivMdUI ui;
 
     /**
      * This constructor keeps the ui for later, when this object
@@ -22,7 +22,7 @@ public class CheatKeyHandler extends KeyAdapter
      * 
      * @param initUI 
      */
-    public CheatKeyHandler(JottoUI initUI)
+    public CheatKeyHandler(LivMdUI initUI)
     {
         // WE'LL NEED THIS WHEN WE RESPOND TO OUR CHEATS
         ui = initUI;

@@ -39,14 +39,14 @@ import properties_manager.PropertiesManager;
  *
  * @author Richard McKenna,Yukti Abrol
  */
-public class JottoUI {
+public class LivMdUI {
 
   /**
    * The LivMdUIState represents the four screen states that are possible for
  the LivMd game application. Depending on which state is in current use,
    * different controls will be visible.
    */
-  public enum JottoUIState {
+  public enum LivMdUIState {
 
     SPLASH_SCREEN_STATE,
     PLAY_GAME_STATE,
@@ -94,9 +94,9 @@ public class JottoUI {
   private JScrollPane helpScrollPane;
   private JEditorPane helpPane;
   // THIS CLASS WILL HANDLE ALL ACTION EVENTS FOR THIS PROGRAM
-  private JottoEventHandler eventHandler;
+  private LivMdEventHandler eventHandler;
   // THIS CLASS WILL HANDLE ALL ERRORS FOR THIS PROGRAM
-  private JottoErrorHandler errorHandler;
+  private LivMdErrorHandler errorHandler;
   // THIS CLASS WILL BUILD THE HTML WE'LL USE TO DISPLAY INFO
   private LivMdDocumentManager docManager;
   // WE'LL USE THIS TO INITIALIZE ALL BUTTONS
@@ -107,7 +107,7 @@ public class JottoUI {
    * all the language-dependent controls, that needs to be done via the startUI
    * method after the user has selected a language.
    */
-  public JottoUI() {
+  public LivMdUI() {
     // KEEP THE GSM FOR RUNNING THE GAME
     gsm = new LivMdStateManager(this);
 
@@ -115,10 +115,10 @@ public class JottoUI {
     cheatKeyHandler = new CheatKeyHandler(this);
 
     // WE'LL USE THIS EVENT HANDLER FOR LOTS OF CONTROLS
-    eventHandler = new JottoEventHandler(this);
+    eventHandler = new LivMdEventHandler(this);
 
     // WE'LL USE THIS ERROR HANDLER WHEN SOMETHING GOES WRONG
-    errorHandler = new JottoErrorHandler(window);
+    errorHandler = new LivMdErrorHandler(window);
 
     // THIS WILL BUILD HTML FOR OUR GAME, STATS, AND HELP PAGES
     docManager = new LivMdDocumentManager(this);
@@ -148,7 +148,7 @@ public class JottoUI {
    *
    * @return The error handler that provides responses to error conditions.
    */
-  public JottoErrorHandler getErrorHandler() {
+  public LivMdErrorHandler getErrorHandler() {
     return errorHandler;
   }
 
@@ -300,7 +300,7 @@ public class JottoUI {
   }
 
   // NOTE THAT THE FOLLOWING INIT METHODS ARE CALLED AFTER THE LANGUAGE HAS
-  // BEEN CHOSEN BY THE USER. THE initJottoUI IS THE ONLY ONE THAT'S PUBLIC
+  // BEEN CHOSEN BY THE USER. THE initLivMdUI IS THE ONLY ONE THAT'S PUBLIC
   // AND IT GETS THE OTHERS ROLLING
   // -initWorkspace
   // -initNorthToolbar
@@ -311,7 +311,7 @@ public class JottoUI {
    * This method initializes the language-specific game controls, which includes
    * the three primary game screens.
    */
-  public void initJottoUI() {
+  public void initLivMdUI() {
     // FIRST REMOVE THE SPLASH SCREEN
     window.getContentPane().removeAll();
 
@@ -331,7 +331,7 @@ public class JottoUI {
     initHelpPane();
 
     // WE'LL START OUT WITH THE GAME SCREEN
-    changeWorkspace(JottoUIState.PLAY_GAME_STATE);
+    changeWorkspace(LivMdUIState.PLAY_GAME_STATE);
 
     // MAKE SURE THE WINDOW REFLECTS ALL THESE CHANGES IMMEDIATELY
     window.revalidate();
@@ -366,7 +366,7 @@ public class JottoUI {
     gameButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent ae) {
-        eventHandler.respondToSwitchScreenRequest(JottoUIState.PLAY_GAME_STATE);
+        eventHandler.respondToSwitchScreenRequest(LivMdUIState.PLAY_GAME_STATE);
       }
     });
 
@@ -376,7 +376,7 @@ public class JottoUI {
     statsButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent ae) {
-        eventHandler.respondToSwitchScreenRequest(JottoUIState.VIEW_STATS_STATE);
+        eventHandler.respondToSwitchScreenRequest(LivMdUIState.VIEW_STATS_STATE);
       }
     });
 
@@ -386,7 +386,7 @@ public class JottoUI {
     helpButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent ae) {
-        eventHandler.respondToSwitchScreenRequest(JottoUIState.VIEW_HELP_STATE);
+        eventHandler.respondToSwitchScreenRequest(LivMdUIState.VIEW_HELP_STATE);
       }
     });
 
@@ -552,7 +552,7 @@ public class JottoUI {
 
     // NOW MAKE THIS PANEL PART OF THE WORKSPACE, WHICH MEANS WE
     // CAN EASILY SWITCH TO IT AT ANY TIME
-    workspace.add(gamePanel, JottoUIState.PLAY_GAME_STATE.toString());
+    workspace.add(gamePanel, LivMdUIState.PLAY_GAME_STATE.toString());
   }
 
   /**
@@ -573,7 +573,7 @@ public class JottoUI {
     statsScrollPane = new JScrollPane(statsPane);
 
     // NOW ADD IT TO THE WORKSPACE, MEANING WE CAN SWITCH TO IT
-    workspace.add(statsScrollPane, JottoUIState.VIEW_STATS_STATE.toString());
+    workspace.add(statsScrollPane, LivMdUIState.VIEW_STATS_STATE.toString());
   }
 
   /**
@@ -614,7 +614,7 @@ public class JottoUI {
     helpPane.addHyperlinkListener(hhl);
 
     // ADD IT TO THE WORKSPACE
-    workspace.add(helpPanel, JottoUIState.VIEW_HELP_STATE.toString());
+    workspace.add(helpPanel, LivMdUIState.VIEW_HELP_STATE.toString());
   }
 
   // ADDITIONAL HELPER METHODS - THESE HELP INIT METHOD IN PARTICULAR
@@ -680,7 +680,7 @@ public class JottoUI {
    *
    * @param uiScreen The screen to be switched to.
    */
-  public void changeWorkspace(JottoUIState uiScreen) {
+  public void changeWorkspace(LivMdUIState uiScreen) {
     // SWITCH TO THE REQUESTED SCREEN
     CardLayout workspaceCardLayout = (CardLayout) workspace.getLayout();
     workspaceCardLayout.show(workspace, uiScreen.toString());

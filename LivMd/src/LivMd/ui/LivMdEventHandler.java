@@ -24,18 +24,18 @@ import properties_manager.PropertiesManager;
  *
  * @author Richard McKenna, Yukti Abrol
  */
-public class JottoEventHandler {
+public class LivMdEventHandler {
   // THIS PROVIDES ACCESS TO ALL APPLICATION DATA AND UI
   // COMPONENTS, SO IT LET'S THE HANDLERS RESPOND APPROPRIATELY
 
-  private JottoUI ui;
+  private LivMdUI ui;
 
   /**
    * Constructor that simply saves the ui for later.
    *
    * @param initUI
    */
-  public JottoEventHandler(JottoUI initUI) {
+  public LivMdEventHandler(LivMdUI initUI) {
     ui = initUI;
   }
 
@@ -45,7 +45,7 @@ public class JottoEventHandler {
    *
    * @param uiState The ui state, or screen, that the user wishes to switch to.
    */
-  public void respondToSwitchScreenRequest(JottoUI.JottoUIState uiState) {
+  public void respondToSwitchScreenRequest(LivMdUI.LivMdUIState uiState) {
     // RELAY THE CHANGE TO THE UI
     ui.changeWorkspace(uiState);
   }
@@ -77,7 +77,7 @@ public class JottoEventHandler {
       gsm.loadWordList(wordList);
 
       // INITIALIZE THE USER INTERFACE WITH THE SELECTED LANGUAGE
-      ui.initJottoUI();
+      ui.initLivMdUI();
 
       // WE'LL START THE GAME TOO
       gsm.startNewGame();

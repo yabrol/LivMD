@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 /**
  * LivMdData stores the data necessary for a single Jotto game. Note that
- * this class works in concert with the JottoGameStateManager, so all instance
+ * this class works in concert with the LivMdStateManager, so all instance
  * variables have default (package-level) access.
  *
  * @author Richard McKenna, Yukti Abrol

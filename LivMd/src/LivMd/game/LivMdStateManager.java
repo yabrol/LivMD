@@ -3,7 +3,7 @@ package LivMd.game;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import LivMd.ui.JottoUI;
+import LivMd.ui.LivMdUI;
 
 /**
  * LivMdStateManager manages all the data for Jotto. Note that it does
@@ -15,7 +15,7 @@ public class LivMdStateManager
 {
     // THE GAME WILL ALWAYS BE IN
     // ONE OF THESE THREE STATES
-    public enum JottoGameState
+    public enum LivMdState
     {
         NOT_LOGGED_IN,
         LOGGED_IN,
@@ -23,12 +23,12 @@ public class LivMdStateManager
     }
     
     // STORES THE CURRENT STATE OF THIS GAME
-    private JottoGameState currentGameState;
+    private LivMdState currentGameState;
     
     // WHEN THE STATE OF THE GAME CHANGES IT WILL NEED TO BE
     // REFLECTED IN THE USER INTERFACE, SO THIS CLASS NEEDS
     // A REFERENCE TO THE UI
-    private JottoUI ui;
+    private LivMdUI ui;
 
     // THIS IS THE DICTIONARY OF LEGAL GUESS WORDS
     private ArrayList<String> wordList;
@@ -55,13 +55,13 @@ public class LivMdStateManager
      * game state manager needs to inform it of when this state
      * changes so that it can display the appropriate changes.
      */
-    public LivMdStateManager(JottoUI initUI)
+    public LivMdStateManager(LivMdUI initUI)
     {
         // STORE THIS FOR LATER
         ui = initUI;
         
         // WE HAVE NOT STARTED A GAME YET
-        currentGameState = JottoGameState.NOT_LOGGED_IN;
+        currentGameState = LivMdState.NOT_LOGGED_IN;
         
         // NO GAMES HAVE BEEN PLAYED YET, BUT INITIALIZE
         // THE DATA STRCUTURE FOR PLACING COMPLETED GAMES
@@ -102,21 +102,21 @@ public class LivMdStateManager
      * @return true if at least one game has already been started during this
      * session, false otherwise.
      */
-    public boolean          isGameNotStarted()       { return currentGameState == JottoGameState.NOT_LOGGED_IN; }
+    public boolean          isGameNotStarted()       { return currentGameState == LivMdState.NOT_LOGGED_IN; }
     
     /**
      * Accessor method for testing to see if the current game is over.
      * 
      * @return true if the game in progress has completed, false otherwise.
      */
-    public boolean          isGameOver()        { return currentGameState == JottoGameState.LOGGED_OUT; }
+    public boolean          isGameOver()        { return currentGameState == LivMdState.LOGGED_OUT; }
 
     /**
      * Accessor method for testing to see if the current game is in progress.
      * 
      * @return true if a game is in progress, false otherwise.
      */
-    public boolean          isGameInProgress()  { return currentGameState == JottoGameState.LOGGED_IN; }
+    public boolean          isGameInProgress()  { return currentGameState == LivMdState.LOGGED_IN; }
     
     /**
      * Counts and returns the number of wins during this game session.
@@ -268,7 +268,7 @@ public class LivMdStateManager
         gameInProgress = new LivMdData(secretWord);
         
         // THE GAME IS OFFICIALLY UNDERWAY
-        currentGameState = JottoGameState.LOGGED_IN;
+        currentGameState = LivMdState.LOGGED_IN;
     }
     
     /**
@@ -315,7 +315,7 @@ public class LivMdStateManager
         if (gameInProgress.isWordFound())
         {
             // CHANGE THE GAME STATE
-            currentGameState = JottoGameState.LOGGED_OUT;
+            currentGameState = LivMdState.LOGGED_OUT;
             
             //Add the YOU WIN! label
             ui.getDocManager().addWinLabel();

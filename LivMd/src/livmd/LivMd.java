@@ -1,7 +1,7 @@
 package LivMd;
 
-import LivMd.ui.JottoUI;
-import LivMd.ui.JottoErrorHandler;
+import LivMd.ui.LivMdUI;
+import LivMd.ui.LivMdErrorHandler;
 import xml_utilities.InvalidXMLFileFormatException;
 import properties_manager.PropertiesManager;
 
@@ -18,7 +18,7 @@ public class LivMd
     // THIS HAS THE FULL USER INTERFACE AND ONCE IN EVENT
     // HANDLING MODE, BASICALLY IT BECOMES THE FOCAL
     // POINT, RUNNING THE UI AND EVERYTHING ELSE
-    static JottoUI ui = new JottoUI();
+    static LivMdUI ui = new LivMdUI();
     
     // WE'LL LOAD ALL THE UI AND LANGUAGE PROPERTIES FROM FILES,
     // BUT WE'LL NEED THESE VALUES TO START THE PROCESS
@@ -52,7 +52,7 @@ public class LivMd
         catch(InvalidXMLFileFormatException ixmlffe)
         {
             // LET THE ERROR HANDLER PROVIDE THE RESPONSE
-            JottoErrorHandler errorHandler = ui.getErrorHandler();
+            LivMdErrorHandler errorHandler = ui.getErrorHandler();
             errorHandler.processError(JottoPropertyType.INVALID_XML_FILE_ERROR_TEXT);
         }
     }

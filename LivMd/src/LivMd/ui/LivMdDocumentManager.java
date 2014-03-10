@@ -26,7 +26,7 @@ public class LivMdDocumentManager {
   // THE JOTTO GAME'S UI HAS ACCESS TO ALL COMPONENTS, SO
   // IT'S USEFUL TO HAVE IT WHEN WE NEED IT
 
-  private JottoUI ui;
+  private LivMdUI ui;
   // THESE ARE THE DOCUMENTS WE'LL BE UPDATING HERE
   private HTMLDocument gameDoc;
   private HTMLDocument statsDoc;
@@ -64,7 +64,7 @@ public class LivMdDocumentManager {
    *
    * @param initUI
    */
-  public LivMdDocumentManager(JottoUI initUI) {
+  public LivMdDocumentManager(LivMdUI initUI) {
     // KEEP THE UI FOR LATER
     ui = initUI;
   }
@@ -125,7 +125,7 @@ public class LivMdDocumentManager {
     // THE HTML FOR THE PAGE, WHICH WOULD LIKELY BE DUE TO BAD DATA FROM
     // AN XML SETUP FILE
     catch (BadLocationException | IOException e) {
-      JottoErrorHandler errorHandler = ui.getErrorHandler();
+      LivMdErrorHandler errorHandler = ui.getErrorHandler();
       errorHandler.processError(JottoPropertyType.INVALID_DOC_ERROR_TEXT);
     }
   }
@@ -186,7 +186,7 @@ public class LivMdDocumentManager {
     // THE HTML FOR THE PAGE, WHICH WOULD LIKELY BE DUE TO BAD DATA FROM
     // AN XML SETUP FILE
     catch (BadLocationException | IOException ex) {
-      JottoErrorHandler errorHandler = ui.getErrorHandler();
+      LivMdErrorHandler errorHandler = ui.getErrorHandler();
       errorHandler.processError(JottoPropertyType.INVALID_DOC_ERROR_TEXT);
     }
   }
@@ -234,7 +234,7 @@ public class LivMdDocumentManager {
     // WHICH COULD HAPPEN IF XML SETUP FILES ARE IMPROPERLY
     // FORMATTED
     catch (BadLocationException | IOException e) {
-      JottoErrorHandler errorHandler = ui.getErrorHandler();
+      LivMdErrorHandler errorHandler = ui.getErrorHandler();
       errorHandler.processError(JottoPropertyType.INVALID_DOC_ERROR_TEXT);
     }
   }
@@ -354,7 +354,7 @@ public class LivMdDocumentManager {
     // THE HTML FOR THE PAGE, WHICH WOULD LIKELY BE DUE TO BAD DATA FROM
     // AN XML SETUP FILE
     catch (BadLocationException | IOException e) {
-      JottoErrorHandler errorHandler = ui.getErrorHandler();
+      LivMdErrorHandler errorHandler = ui.getErrorHandler();
       errorHandler.processError(JottoPropertyType.INVALID_DOC_ERROR_TEXT);
     }
   }
@@ -442,7 +442,7 @@ public class LivMdDocumentManager {
     // THE HTML FOR THE PAGE, WHICH WOULD LIKELY BE DUE TO BAD DATA FROM
     // AN XML SETUP FILE
     catch (BadLocationException | IOException e) {
-      JottoErrorHandler errorHandler = ui.getErrorHandler();
+      LivMdErrorHandler errorHandler = ui.getErrorHandler();
       errorHandler.processError(JottoPropertyType.INVALID_DOC_ERROR_TEXT);
     }
   }

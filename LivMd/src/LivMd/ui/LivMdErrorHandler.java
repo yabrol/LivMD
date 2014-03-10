@@ -13,7 +13,7 @@ import properties_manager.PropertiesManager;
  * 
  * @author Richard McKenna
  */
-public class JottoErrorHandler
+public class LivMdErrorHandler
 {
     // WE'LL CENTER DIALOG BOXES OVER THE WINDOW, SO WE NEED THIS
     private JFrame window;
@@ -23,7 +23,7 @@ public class JottoErrorHandler
      * 
      * @param initWindow 
      */
-    public JottoErrorHandler(JFrame initWindow)
+    public LivMdErrorHandler(JFrame initWindow)
     {
         // KEEP THE WINDOW FOR LATER
         window = initWindow;
