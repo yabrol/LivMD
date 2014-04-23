@@ -214,3 +214,5 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 /Jotto/nbproject/private/
+/AudioManager/nbproject/private/
+/MagicTrick/nbproject/private/
