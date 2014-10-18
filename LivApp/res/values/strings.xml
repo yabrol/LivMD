@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">LivApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="Name">Name</string>
+    <string name="PIN">PIN</string>
+    <string name="log_in">Log in</string>
+    <string name="Sign_in">Sign In</string>
+    <string name="Create_new_user">Create New User</string>
+
+    <!-- Selection -->
+    <string name="title_activity_selection">SelectionActivity</string>
+
+    <!-- Settings -->
+    <string name="Patient_name">Name</string>
+    <string name="Date_of_Birth">Date of Birth</string>
+    <string name="Height">Height</string>
+    <string name="Weight">Weight</string>
+    <string name="Doctor_Name">Doctor\'s Name</string>
+    <string name="Doctor_Email">Doctor\'s Email</string>
+
+    <string name="Change_PIN">Change Pin</string>
+    <string name="Close_Settings">Close Settings</string>
+    <string name="title_activity_end_questions">End_questions</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="Pain_Level">Pain Level (VAS Scale)</string>
+    <string name="Close">Close</string>
+
+</resources>
